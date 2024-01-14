@@ -1,0 +1,33 @@
+
+import java.util.Stack;
+
+public class LispParenthesesChecker {
+    
+    public static void main(String[] args) {
+        String lispCode = "(define (factorial n) (if (= n 0) 1 (* n (factorial (- n 1)))))"; // Example LISP code
+        System.out.println("Is LISP code parentheses balanced? " + isParenthesesBalanced(lispCode));
+    }
+
+    public static boolean isParenthesesBalanced(String code) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < code.length(); i++) {
+            char c = code.charAt(i);
+
+            // Push opening parenthesis '(' onto stack
+            if (c == '(') {
+                stack.push(c);
+            }
+            // Check for closing parenthesis ')'
+            else if (c == ')') {
+                // If stack is empty or top is not '(', parentheses are not balanced
+                if (stack.isEmpty() || stack.pop() != '(') {
+                    return false;
+                }
+            }
+        }
+
+        // If stack is empty, parentheses are balanced
+        return stack.isEmpty();
+    }
+}
